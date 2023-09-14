@@ -18,8 +18,10 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col">
-      <div className="flex items-end justify-between">
-        <h1 className="text-5xl font-bold text-grey">How much can I save?</h1>
+      <div className="flex items-end justify-between gap-6 flex-wrap">
+        <h1 className="text-4xl md:text-5xl font-bold text-grey">
+          How much can I save?
+        </h1>
         <div className="flex items-center gap-6 text-sm text-grey font-medium [&>a]:transition-all [&>a]:duration-300 uppercase">
           <a
             href="https://www.linkedin.com/company/deepwhale-ai/?viewAsMember=true"

@@ -101,8 +101,8 @@ export default function Form({pricingData}: {pricingData: PricingDataItem[]}) {
   }, [pricingData]);
 
   return (
-    <div className="mt-[88px] flex items-start justify-between">
-      <form className="max-w-[373px] w-full">
+    <div className="mt-10 lg:mt-[88px] flex flex-col lg:flex-row gap-10 items-start justify-between">
+      <form className="lg:max-w-[373px] w-full">
         <label htmlFor="usageType" className="font-medium text-grey-700">
           What usage type will you be using?
         </label>
@@ -136,7 +136,7 @@ export default function Form({pricingData}: {pricingData: PricingDataItem[]}) {
           <input
             id="duration"
             type="number"
-            className="max-w-[177px] mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800"
+            className="lg:max-w-[177px] w-full mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800"
             min="0"
             placeholder="Enter a number"
             defaultValue={serviceUsage.value}
@@ -147,7 +147,7 @@ export default function Form({pricingData}: {pricingData: PricingDataItem[]}) {
             id="unit"
             onChange={handleUnitChange}
             value={serviceUsage.unit}
-            className="max-w-[177px] w-full mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800 pl-3"
+            className="lg:max-w-[177px] w-full mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800 pl-3"
           >
             <option value="hours">hours</option>
             <option value="weeks">weeks</option>
@@ -175,7 +175,7 @@ export default function Form({pricingData}: {pricingData: PricingDataItem[]}) {
         </label>
       </form>
 
-      <div className="w-full max-w-[619px] bg-white p-[60px] rounded-xl shadow-[0px_15px_48px_-20px_rgba(0,0,0,0.24)]">
+      <div className="w-full max-w-full lg:max-w-[540px] xl:max-w-[619px] bg-white p-4 sm:p-8 xl:p-[60px] rounded-xl shadow-[0px_15px_48px_-20px_rgba(0,0,0,0.24)]">
         <div className="mt-4 flex flex-col items-center">
           <p className="text-grey-700 text-sm font-medium">TOTAL SAVINGS</p>
           <p className="text-[2.5rem] text-grey font-bold mt-3 leading-none">
