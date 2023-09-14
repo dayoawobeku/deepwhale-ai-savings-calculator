@@ -35,7 +35,6 @@ export default function Form({
   const [savings, setSavings] = useState(0);
   const [serviceUsage, setServiceUsage] = useState({value: 3, unit: 'months'});
   const [cost, setCost] = useState(0);
-
   const [usageType, setUsageType] = useState({
     value: '',
     label: '',
@@ -72,9 +71,7 @@ export default function Form({
   }, [pricingData, quantity, serviceUsage.unit, serviceUsage.value, usageType]);
 
   useEffect(() => {
-    // Set default usageType when pricingData is available
     if (pricingData.length > 0 && usageType.value === '') {
-      // remove duplicates
       const uniquePricingData = pricingData.filter(
         (item, index, self) =>
           self.findIndex(t => t.usage_type === item.usage_type) === index,
