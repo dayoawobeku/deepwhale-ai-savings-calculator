@@ -18,10 +18,60 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+}
+
+select {
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  background-image: url('/chevron-down.svg');
+  background-repeat: no-repeat;
+  background-position-x: calc(100% - 16px);
+  background-position-y: 15px;
+}
+
+/* react select styling */
+.react-select__indicator {
+  padding: 0 16px 0 0 !important;
+}
+
+.react-select__control {
+  min-height: 45px !important;
+  border-radius: 4px !important;
+  border-width: 1 !important;
+  border-color: #bcc1cd !important;
+}
+
+.react-select__placeholder {
+  font-size: 14px !important;
+  color: #7a7a7a !important;
+}
+
+.react-select__control--is-focused {
+  border-color: #1c1e26 !important;
+}
+
+.react-select__option {
+  font-size: 14px !important;
+}
+
+.react-select__option--is-focused,
+.react-select__option:hover {
+  background-color: transparent !important;
+}
+
+.react-select__option--is-selected {
+  background-color: #1c1e26 !important;
+  position: relative;
+}
+
+.react-select__option--is-selected:focus {
+  background-color: #1c1e26 !important;
+  color: #fff !important;
+}
+
+.react-select__option--is-selected:hover {
+  background-color: #1c1e26 !important;
+  color: #fff !important;
 }

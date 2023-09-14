@@ -1,0 +1,19 @@
+export interface PricingDataItem {
+  currency: string | null;
+  duration_seconds: number | null;
+  instance_family: string | null;
+  instance_type: string | null;
+  offering_id: string | null;
+  operation: string | null;
+  payment_option: string | null;
+  plan_description: string | null;
+  plan_type: string | null;
+  product_description: string | null;
+  product_type: string | null;
+  rate: number | null;
+  region: string | null;
+  service_code: string | null;
+  tenancy: string | null;
+  unit: string | null;
+  usage_type: string | null;
+}
