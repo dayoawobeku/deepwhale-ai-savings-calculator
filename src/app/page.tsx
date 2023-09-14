@@ -1,6 +1,21 @@
+import {cache} from 'react';
+import {cookies} from 'next/headers';
+import {createServerComponentClient} from '@supabase/auth-helpers-nextjs';
 import Form from '@/components/form';
+import {Database} from '@/schema';
 
-export default function Home() {
+const createServerClient = cache(() => {
+  const cookieStore = cookies();
+  return createServerComponentClient<Database>({
+    cookies: () => cookieStore,
+  });
+});
+
+export default async function Home() {
+  const supabase = createServerClient();
+
+  const {data, error} = await supabase.from('on_demand_services').select('*');
+
   return (
     <main className="flex flex-col">
       <div className="flex items-end justify-between">
@@ -33,7 +48,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Form />
+      <Form pricingData={data || []} />
     </main>
   );
 }

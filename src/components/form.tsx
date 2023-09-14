@@ -3,9 +3,7 @@
 import {useState, useEffect, useMemo} from 'react';
 import Image from 'next/image';
 import Select from 'react-select';
-import {createClient} from '@supabase/supabase-js';
 import {PricingDataItem} from './types';
-import {Database} from '@/schema';
 import {costIc, savingsIc} from '@/assets/images';
 import {DropdownIndicator, customStyles} from './custom-select';
 
@@ -24,18 +22,7 @@ function getDurationText(unit: string, value: number) {
   }
 }
 
-const supabase = createClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL as string,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
-  {
-    auth: {
-      persistSession: false,
-    },
-  },
-);
-
-export default function Form() {
-  const [pricingData, setPricingData] = useState<PricingDataItem[]>([]);
+export default function Form({pricingData}: {pricingData: PricingDataItem[]}) {
   const [quantity, setQuantity] = useState(8);
   const [savings, setSavings] = useState(0);
   const [serviceUsage, setServiceUsage] = useState({value: 3, unit: 'months'});
@@ -45,25 +32,6 @@ export default function Form() {
     value: '',
     label: '',
   });
-
-  useEffect(() => {
-    const fetchPricingData = async () => {
-      try {
-        const {data, error} = await supabase
-          .from('on_demand_services')
-          .select('*');
-
-        if (error) {
-          console.error('Error fetching pricing data:', error);
-        } else {
-          setPricingData(data);
-        }
-      } catch (error) {
-        console.error('Error fetching pricing data:', error);
-      }
-    };
-    fetchPricingData();
-  }, []);
 
   useEffect(() => {
     const calculateSavings = () => {
@@ -135,10 +103,11 @@ export default function Form() {
   return (
     <div className="mt-[88px] flex items-start justify-between">
       <form className="max-w-[373px] w-full">
-        <label className="font-medium text-grey-700">
+        <label htmlFor="usageType" className="font-medium text-grey-700">
           What usage type will you be using?
         </label>
         <Select
+          inputId="usageType"
           value={usageType}
           onChange={value =>
             setUsageType(
@@ -162,29 +131,30 @@ export default function Form() {
           className="block mt-10 text-grey-700 font-medium"
         >
           How long will you use this service?
-          <div className="flex items-center gap-5 justify-between">
-            <input
-              id="duration"
-              name="duration"
-              type="number"
-              className="max-w-[177px] mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800"
-              min="0"
-              placeholder="Enter a number"
-              defaultValue={serviceUsage.value}
-              onChange={handleServiceUsageChange}
-            />
-            <select
-              onChange={handleUnitChange}
-              value={serviceUsage.unit}
-              className="max-w-[177px] w-full mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800 pl-3"
-            >
-              <option value="hours">hours</option>
-              <option value="weeks">weeks</option>
-              <option value="months">months</option>
-              <option value="years">years</option>
-            </select>
-          </div>
         </label>
+        <div className="flex items-center gap-5 justify-between">
+          <input
+            id="duration"
+            type="number"
+            className="max-w-[177px] mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800"
+            min="0"
+            placeholder="Enter a number"
+            defaultValue={serviceUsage.value}
+            onChange={handleServiceUsageChange}
+          />
+          <select
+            name="unit"
+            id="unit"
+            onChange={handleUnitChange}
+            value={serviceUsage.unit}
+            className="max-w-[177px] w-full mt-[3px] h-[45px] text-grey text-base font-medium px-0 rounded-none outline-none border-b-[0.5px] border-grey-500 placeholder:text-sm placeholder:text-grey-700 focus:border-grey focus:ring-0 focus:text-grey bg-white-800 pl-3"
+          >
+            <option value="hours">hours</option>
+            <option value="weeks">weeks</option>
+            <option value="months">months</option>
+            <option value="years">years</option>
+          </select>
+        </div>
         <label
           htmlFor="quantity"
           className="block mt-10 text-grey-700 font-medium"
